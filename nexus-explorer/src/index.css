@@ -259,6 +259,19 @@ button, input, select {
 .mobile-only-actions {
   display: none;
 }
+.mobile-filter-toggle {
+  display: none;
+}
+.filter-row {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+.filter-group {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
 
 /* Breadcrumbs */
 .breadcrumbs {
@@ -425,7 +438,17 @@ button, input, select {
   .main-content { margin-left: 0; }
   .page-container { padding: 16px; }
   
-  /* Horizontal scroll for filters on mobile */
-  .character-filters-wrapper { overflow-x: auto; padding-bottom: 12px; }
-  .character-filters { min-width: 600px; display: flex; flex-direction: column; gap: 16px; margin-bottom: 24px; }
+  /* Filter dropdown on mobile */
+  .mobile-filter-toggle { display: block; width: 100%; padding: 12px; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; font-weight: 600; cursor: pointer; margin-bottom: 16px; color: var(--text-primary); }
+  .character-filters-wrapper { overflow: visible; padding-bottom: 0; }
+  .character-filters { display: none; }
+  .character-filters.expanded { display: flex; flex-direction: column; gap: 16px; margin-bottom: 24px; min-width: 0; }
+  .filter-row { flex-direction: column; align-items: stretch; gap: 12px; }
+  .filter-group { flex-wrap: wrap; }
+  
+  /* Horizontal Character Card on mobile */
+  .character-card { display: flex; flex-direction: row; align-items: center; }
+  .character-card img { width: 100px !important; height: 100px; aspect-ratio: auto !important; }
+  .character-card .card-info { padding: 12px !important; flex: 1; min-width: 0; }
+  .character-card h3 { font-size: 14px !important; }
 }

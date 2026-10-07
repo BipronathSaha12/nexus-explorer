@@ -6,6 +6,7 @@ import { useDebouncedValue } from '../../hooks/useDebouncedValue';
 
 const CharacterFilters = () => {
   const [searchParams, setSearchParams] = useSearchParams();
+  const [isExpanded, setIsExpanded] = useState(false);
   
   // [REQ-5] Controlled inputs, and one form managed with a single state object
   const [filters, setFilters] = useState({
@@ -58,8 +59,14 @@ const CharacterFilters = () => {
 
   return (
     <div className="character-filters-wrapper">
-      <div className="character-filters">
-        <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
+      <button 
+        className="mobile-filter-toggle" 
+        onClick={() => setIsExpanded(!isExpanded)}
+      >
+        {isExpanded ? 'Hide Filters' : 'Show Filters'}
+      </button>
+      <div className={`character-filters ${isExpanded ? 'expanded' : ''}`}>
+        <div className="filter-row">
         <input
           type="text"
           name="name"
@@ -70,7 +77,7 @@ const CharacterFilters = () => {
           style={{ padding: '8px 12px', borderRadius: '10px', border: '1px solid var(--border)', background: 'var(--surface)' }}
         />
         
-        <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+        <div className="filter-group">
           <span style={{ fontSize: '12px', fontWeight: 600, color: 'var(--text-muted)' }}>STATUS</span>
           <Chip active={!filters.status} onClick={() => setFilters(prev => ({ ...prev, status: '' }))}>All</Chip>
           {STATUS_OPTIONS.map(status => (
@@ -86,8 +93,8 @@ const CharacterFilters = () => {
         </div>
       </div>
 
-      <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
-        <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+      <div className="filter-row">
+        <div className="filter-group">
           <span style={{ fontSize: '12px', fontWeight: 600, color: 'var(--text-muted)' }}>SPECIES</span>
           <select 
             name="species" 
@@ -103,7 +110,7 @@ const CharacterFilters = () => {
           </select>
         </div>
 
-        <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+        <div className="filter-group">
           <span style={{ fontSize: '12px', fontWeight: 600, color: 'var(--text-muted)' }}>GENDER</span>
           <select 
             name="gender" 

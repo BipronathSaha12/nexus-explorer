@@ -49,7 +49,7 @@ const CharacterCard = React.memo(({ character, isWatchlisted }) => {
         style={{ width: '100%', aspectRatio: '1/1', objectFit: 'cover' }} 
       />
       
-      <div style={{ padding: '14px' }}>
+      <div className="card-info" style={{ padding: '14px' }}>
         <h3 style={{ fontSize: '16px', fontWeight: '600', margin: '0 0 4px 0', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
           {character.name}
         </h3>
