@@ -2,9 +2,6 @@
 
 Nexus Explorer is an internal research console used by a media-analytics team to browse a large public character database, keep a personal watchlist, and view real-time data seamlessly. The application strictly adheres to provided design mockups and uses React, React Router, Context API, and TanStack React Query to fetch data from the public Rick and Morty API.
 
-## Screenshots
-*(Screenshots to be added in final submission)*
-
 ## Setup Instructions
 1. Ensure Node.js is installed.
 2. Clone this repository and navigate into the project directory.
