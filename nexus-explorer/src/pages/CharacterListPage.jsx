@@ -9,7 +9,6 @@ import Pagination from '../components/ui/Pagination';
 import ErrorState from '../components/ui/ErrorState';
 import EmptyState from '../components/ui/EmptyState';
 import Skeleton from '../components/ui/Skeleton';
-import Badge from '../components/ui/Badge'; // Wait, let's just use span
 
 const fetchCharacters = async (params) => {
   const data = await get(characterListUrl(params));
