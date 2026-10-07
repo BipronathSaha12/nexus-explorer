@@ -52,6 +52,11 @@
   color: #f8fafc;
 }
 
+[data-theme='dark'] .crash-button,
+[data-theme='dark'] .ui-chip.active {
+  color: #020617;
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -79,6 +84,7 @@ ul {
 button, input, select {
   font-family: inherit;
   font-size: inherit;
+  color: inherit;
 }
 /* Layout Styles */
 .app-layout {
