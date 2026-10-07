@@ -64,6 +64,7 @@ const Topbar = ({ onMenuClick }) => {
         />
         <span className="search-shortcut">Ctrl K</span>
       </div>
+      </div>
 
       <div className="topbar-actions">
         <div className="sync-indicator">
