@@ -1,9 +1,9 @@
 import React, { useRef, useEffect, useState } from 'react';
-import { MdSearch, MdRefresh, MdDarkMode, MdLightMode } from 'react-icons/md';
+import { MdSearch, MdRefresh, MdDarkMode, MdLightMode, MdMenu } from 'react-icons/md';
 import { useTheme } from '../../contexts/theme/useTheme';
 import CrashTest from '../error/CrashTest';
 
-const Topbar = () => {
+const Topbar = ({ onMenuClick }) => {
   const { theme, toggleTheme } = useTheme();
   
   // [REQ-1] useRef to touch the DOM: focus an input, write innerText
@@ -47,8 +47,16 @@ const Topbar = () => {
 
   return (
     <header className="topbar">
-      <div className="search-bar">
-        <MdSearch className="search-icon" />
+      <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+        <button 
+          className="icon-button mobile-menu-btn" 
+          onClick={onMenuClick}
+          aria-label="Open menu"
+        >
+          <MdMenu />
+        </button>
+        <div className="search-bar">
+          <MdSearch className="search-icon" />
         <input 
           type="text" 
           placeholder="Search characters by name..." 

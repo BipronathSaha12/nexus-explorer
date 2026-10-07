@@ -10,7 +10,7 @@ const fetchCharacterCount = async () => {
   return data.info.count;
 };
 
-const Sidebar = () => {
+const Sidebar = ({ isOpen, onClose }) => {
   const { data: count } = useQuery({
     queryKey: ['characters', 'totalCount'],
     queryFn: fetchCharacterCount,
@@ -27,7 +27,15 @@ const Sidebar = () => {
   ];
 
   return (
-    <aside className="sidebar">
+    <>
+      {isOpen && (
+        <div 
+          className="sidebar-overlay" 
+          onClick={onClose}
+          style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.5)', zIndex: 900 }}
+        />
+      )}
+      <aside className={`sidebar ${isOpen ? 'open' : ''}`}>
       <div className="sidebar-brand">
         <Link to="/">
           <div className="brand-logo">N</div>
@@ -78,6 +86,7 @@ const Sidebar = () => {
         </nav>
       </div>
     </aside>
+    </>
   );
 };
 
