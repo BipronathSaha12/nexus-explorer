@@ -4,6 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 import { characterUrl, episodesUrl } from '../api/endpoints';
 import { get } from '../api/http';
 import { useWatchlist } from '../contexts/watchlist/useWatchlist';
+import { useRecentlyViewed } from '../hooks/useRecentlyViewed';
 import { formatDate } from '../utils/format';
 import Card from '../components/ui/Card';
 import Badge from '../components/ui/Badge';
@@ -25,7 +26,6 @@ const fetchEpisodes = async (episodeUrls) => {
 };
 
 const CharacterDetailPage = () => {
-  // [REQ-12] useParams: the character id is read from the URL
   const { id } = useParams();
   const navigate = useNavigate();
   const { watchlistIds, toggleWatchlist } = useWatchlist();
@@ -41,37 +41,32 @@ const CharacterDetailPage = () => {
     enabled: !!character?.episode, // Only run when character is loaded
   });
 
+  const { addViewed } = useRecentlyViewed();
+
   // Track Recently Viewed
   useEffect(() => {
     if (character) {
-      const stored = JSON.parse(localStorage.getItem('nexus-recently-viewed') || '[]');
-      const filtered = stored.filter(c => c.id !== character.id);
-      filtered.unshift({
+      addViewed({
         id: character.id,
         name: character.name,
         image: character.image,
         species: character.species,
         status: character.status,
       });
-      // Keep max 5 items
-      if (filtered.length > 5) {
-        filtered.pop();
-      }
-      localStorage.setItem('nexus-recently-viewed', JSON.stringify(filtered));
     }
-  }, [character]);
+  }, [character, addViewed]);
 
   if (isLoading) {
-    return <div style={{ padding: '24px' }}><Skeleton style={{ height: '300px' }}/></div>;
+    return <div style={{ padding: '24px' }}><Skeleton style={{ height: '300px' }} /></div>;
   }
 
   if (isError) {
     if (error.message === 'There is nothing here' || error.message.includes('404')) {
       return (
-        <ErrorState 
-          message="Character not found" 
+        <ErrorState
+          message="Character not found"
           subtext={`No character exists with ID ${id}.`}
-          onRetry={() => navigate('/characters')} 
+          onRetry={() => navigate('/characters')}
         />
       );
     }
@@ -101,9 +96,9 @@ const CharacterDetailPage = () => {
       </div>
 
       <Card style={{ display: 'flex', gap: '32px', padding: '32px', marginBottom: '24px' }}>
-        <img 
-          src={character.image} 
-          alt={character.name} 
+        <img
+          src={character.image}
+          alt={character.name}
           style={{ width: '200px', height: '200px', borderRadius: '16px', objectFit: 'cover' }}
         />
         <div style={{ flex: 1 }}>
@@ -154,7 +149,7 @@ const CharacterDetailPage = () => {
           Episode appearances
           {isEpisodesLoading && <span style={{ fontSize: '11px', padding: '2px 8px', borderRadius: '999px', background: 'var(--query-stale-bg)', color: 'var(--query-stale-text)', fontWeight: 'normal' }}>loading...</span>}
         </h3>
-        
+
         {episodes && episodes.length > 0 && (
           <ul style={{ borderTop: '1px solid var(--border)' }}>
             {episodes.map(ep => (

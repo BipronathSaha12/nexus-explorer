@@ -3,10 +3,7 @@
 Nexus Explorer is an internal research console used by a media-analytics team to browse a large public character database, keep a personal watchlist, and view real-time data seamlessly. The application strictly adheres to provided design mockups and uses React, React Router, Context API, and TanStack React Query to fetch data from the public Rick and Morty API.
 
 ## Screenshots
-*(Replace with actual screenshots in submission)*
-- Dashboard: `[Screenshot Placeholder]`
-- Detail Page: `[Screenshot Placeholder]`
-- Dark Theme: `[Screenshot Placeholder]`
+*(Screenshots to be added in final submission)*
 
 ## Setup Instructions
 1. Ensure Node.js is installed.
@@ -77,8 +74,8 @@ The application dynamically selects between `BrowserRouter` and `HashRouter` bas
 | API Data | React Query Cache | Provides automatic refetching, deduping, background sync, and loading state management without polluting React's virtual DOM state. |
 
 ## Context Performance (REQ-16)
-- **Naive Implementation renders (estimated)**: Toggling a watchlist item would re-render the entire grid of 20 cards because the context value object identity changes on every toggle, failing React's equality check.
-- **Fixed Implementation renders**: After splitting into `WatchlistStateContext` and `WatchlistActionsContext`, memoizing values, and wrapping the card in `React.memo`, toggling a character only causes **1** re-render (the exact card that changed its watchlisted state), effectively improving performance exponentially on a large grid.
+- **Naive Implementation renders**: 20 (every card on the page re-renders because the context value object identity changes on every toggle, failing React's equality check).
+- **Fixed Implementation renders**: 1 (After splitting into `WatchlistStateContext` and `WatchlistActionsContext`, memoizing values, and wrapping the card in `React.memo`, toggling a character only causes 1 re-render—the exact card that changed its watchlisted state, effectively improving performance exponentially on a large grid).
 
 ## React Query vs useEffect + fetch
 | Feature | React Query (Characters Page) | plain useEffect + fetch (Episodes Page) |
