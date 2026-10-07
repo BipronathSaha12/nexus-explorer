@@ -3,6 +3,7 @@ import { Outlet } from 'react-router-dom';
 import Sidebar from './Sidebar';
 import Topbar from './Topbar';
 import Breadcrumbs from './Breadcrumbs';
+import Footer from './Footer';
 
 const AppShell = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -20,6 +21,7 @@ const AppShell = () => {
             <Outlet />
           </div>
         </main>
+        <Footer />
       </div>
     </div>
   );
