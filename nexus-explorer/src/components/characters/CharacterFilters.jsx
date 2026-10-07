@@ -57,11 +57,13 @@ const CharacterFilters = () => {
   };
 
   return (
-    <div className="character-filters" style={{ display: 'flex', flexDirection: 'column', gap: '16px', marginBottom: '24px' }}>
-      <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
+    <div className="character-filters-wrapper">
+      <div className="character-filters">
+        <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
         <input
           type="text"
           name="name"
+          aria-label="Active query"
           value={filters.name}
           onChange={handleChange}
           placeholder="Active query..."
@@ -89,6 +91,7 @@ const CharacterFilters = () => {
           <span style={{ fontSize: '12px', fontWeight: 600, color: 'var(--text-muted)' }}>SPECIES</span>
           <select 
             name="species" 
+            aria-label="Species"
             value={filters.species} 
             onChange={handleChange}
             style={{ padding: '8px', borderRadius: '10px', border: '1px solid var(--border)', background: 'var(--surface)' }}
@@ -104,6 +107,7 @@ const CharacterFilters = () => {
           <span style={{ fontSize: '12px', fontWeight: 600, color: 'var(--text-muted)' }}>GENDER</span>
           <select 
             name="gender" 
+            aria-label="Gender"
             value={filters.gender} 
             onChange={handleChange}
             style={{ padding: '8px', borderRadius: '10px', border: '1px solid var(--border)', background: 'var(--surface)' }}
@@ -122,6 +126,7 @@ const CharacterFilters = () => {
           × Clear filters
         </button>
       </div>
+    </div>
     </div>
   );
 };

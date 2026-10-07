@@ -40,7 +40,7 @@ const Sidebar = () => {
 
       <div className="sidebar-section">
         <p className="sidebar-label">EXPLORE</p>
-        <nav>
+        <nav aria-label="Explore Navigation">
           <ul>
             {navItems.slice(0, 4).map((item) => (
               <li key={item.name}>
@@ -61,7 +61,7 @@ const Sidebar = () => {
 
       <div className="sidebar-section">
         <p className="sidebar-label">PERSONAL</p>
-        <nav>
+        <nav aria-label="Personal Navigation">
           <ul>
             {navItems.slice(4).map((item) => (
               <li key={item.name}>

@@ -10,12 +10,12 @@ const AppShell = () => {
       <Sidebar />
       <div className="main-content">
         <Topbar />
-        <div className="page-container">
+        <main className="page-container">
           <Breadcrumbs />
           <div className="page-content">
             <Outlet />
           </div>
-        </div>
+        </main>
       </div>
     </div>
   );

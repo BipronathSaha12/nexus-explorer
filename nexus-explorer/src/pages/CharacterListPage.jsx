@@ -61,9 +61,9 @@ const CharacterListPage = () => {
   };
 
   return (
-    <div style={{ display: 'flex', gap: '24px', alignItems: 'flex-start' }}>
+    <div className="page-layout">
       {/* Main Content */}
-      <div style={{ flex: 1, minWidth: 0 }} className="character-list-page">
+      <div className="page-main character-list-page">
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '16px' }}>
           <div>
             <h2 style={{ fontSize: '24px', fontWeight: '700', margin: '0 0 4px 0' }}>Characters</h2>
@@ -124,7 +124,7 @@ const CharacterListPage = () => {
       </div>
 
       {/* Right Rail */}
-      <div style={{ width: '320px', flexShrink: 0 }} className="right-rail">
+      <div className="right-rail">
         <WatchlistPanel />
         <RecentlyViewed />
         <DataFreshness />
