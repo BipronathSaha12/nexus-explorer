@@ -1,6 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { MdSearch, MdRefresh, MdDarkMode, MdLightMode } from 'react-icons/md';
 import { useTheme } from '../../contexts/theme/useTheme';
+import CrashTest from '../error/CrashTest';
 
 const Topbar = () => {
   const { theme, toggleTheme } = useTheme();
@@ -44,10 +45,6 @@ const Topbar = () => {
     // Further refetching logic can be added here (e.g., queryClient.refetchQueries)
   };
 
-  const handleCrashTest = () => {
-    throw new Error('User initiated Crash Test');
-  };
-
   return (
     <header className="topbar">
       <div className="search-bar">
@@ -74,9 +71,7 @@ const Topbar = () => {
           {theme === 'light' ? <MdDarkMode /> : <MdLightMode />}
         </button>
 
-        <button className="crash-button" onClick={handleCrashTest}>
-          Crash Test
-        </button>
+        <CrashTest />
       </div>
     </header>
   );

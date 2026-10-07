@@ -1,5 +1,6 @@
 import React from 'react';
 import { logError } from '../../utils/logger';
+import FallbackUI from './FallbackUI';
 
 class ErrorBoundary extends React.Component {
   constructor(props) {
@@ -29,19 +30,7 @@ class ErrorBoundary extends React.Component {
         });
       }
       // Default fallback if none provided
-      return (
-        <div style={{ padding: '20px', backgroundColor: 'var(--surface)', color: 'var(--danger)', borderRadius: '14px', border: '1px solid var(--border)' }}>
-          <h2>Something went wrong.</h2>
-          <details style={{ whiteSpace: 'pre-wrap', marginTop: '10px' }}>
-            {this.state.error && this.state.error.toString()}
-            <br />
-            {this.state.errorInfo && this.state.errorInfo.componentStack}
-          </details>
-          <button onClick={this.resetBoundary} style={{ marginTop: '10px', padding: '8px 16px', background: 'var(--primary)', color: 'white', border: 'none', borderRadius: '10px', cursor: 'pointer' }}>
-            Try again
-          </button>
-        </div>
-      );
+      return <FallbackUI error={this.state.error} resetBoundary={this.resetBoundary} />;
     }
 
     return this.props.children;
