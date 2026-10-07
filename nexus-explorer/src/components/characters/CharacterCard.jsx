@@ -3,19 +3,17 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useQueryClient } from '@tanstack/react-query';
 import { characterUrl } from '../../api/endpoints';
 import { get } from '../../api/http';
-import { useWatchlist } from '../../contexts/watchlist/useWatchlist';
+import { useWatchlistActions } from '../../contexts/watchlist/useWatchlist';
 import Card from '../ui/Card';
 import Badge from '../ui/Badge';
-import Button from '../ui/Button';
+import WatchlistButton from '../watchlist/WatchlistButton';
+import { useRenderCount } from '../../hooks/useRenderCount';
 
 // [REQ-16] A context performance pitfall fixed: memoise the card with React.memo
-const CharacterCard = React.memo(({ character }) => {
+const CharacterCard = React.memo(({ character, isWatchlisted }) => {
   const queryClient = useQueryClient();
-  const navigate = useNavigate();
-  // Using the convenience hook that provides both state and actions
-  const { watchlistIds, toggleWatchlist } = useWatchlist();
-  
-  const isWatchlisted = watchlistIds.includes(character.id);
+  const { toggleWatchlist } = useWatchlistActions();
+  const renderCount = useRenderCount();
 
   // [REQ-21] Prefetching: queryClient.prefetchQuery on card hover
   const handleMouseEnter = () => {
@@ -29,26 +27,20 @@ const CharacterCard = React.memo(({ character }) => {
     });
   };
 
-  const renderCountRef = React.useRef(0);
-  renderCountRef.current++;
+  const handleToggle = (e) => {
+    e.preventDefault();
+    toggleWatchlist(character.id);
+  };
 
   return (
     <Card className="character-card" onMouseEnter={handleMouseEnter} style={{ position: 'relative' }}>
       {/* [REQ-16] render counter */}
       <div style={{ position: 'absolute', top: 8, left: 8, background: 'rgba(0,0,0,0.5)', color: 'white', padding: '2px 6px', borderRadius: '4px', fontSize: '10px', zIndex: 10 }}>
-        Render: {renderCountRef.current}
+        Render: {renderCount}
       </div>
       
       <div style={{ position: 'absolute', top: 8, right: 8, zIndex: 10 }}>
-        <button 
-          onClick={(e) => {
-            e.preventDefault();
-            toggleWatchlist(character.id);
-          }}
-          style={{ background: 'white', border: 'none', borderRadius: '50%', width: '32px', height: '32px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', boxShadow: '0 2px 4px rgba(0,0,0,0.1)', color: isWatchlisted ? 'var(--primary)' : 'var(--text-muted)' }}
-        >
-          {isWatchlisted ? '★' : '☆'}
-        </button>
+        <WatchlistButton isWatchlisted={isWatchlisted} onToggle={handleToggle} />
       </div>
 
       <img 

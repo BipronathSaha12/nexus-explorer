@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { useSearchParams } from 'react-router-dom';
 import { characterListUrl } from '../api/endpoints';
 import { get } from '../api/http';
 import CharacterFilters from '../components/characters/CharacterFilters';
-import CharacterCard from '../components/characters/CharacterCard';
+import CharacterGrid from '../components/characters/CharacterGrid';
 import Pagination from '../components/ui/Pagination';
 import ErrorState from '../components/ui/ErrorState';
 import EmptyState from '../components/ui/EmptyState';
@@ -34,6 +34,18 @@ const CharacterListPage = () => {
     queryFn: () => fetchCharacters(queryParams),
     placeholderData: (previousData) => previousData, // keepPreviousData replacement in v5
   });
+
+  const [isOnline, setIsOnline] = useState(navigator.onLine);
+  useEffect(() => {
+    const handleOnline = () => setIsOnline(true);
+    const handleOffline = () => setIsOnline(false);
+    window.addEventListener('online', handleOnline);
+    window.addEventListener('offline', handleOffline);
+    return () => {
+      window.removeEventListener('online', handleOnline);
+      window.removeEventListener('offline', handleOffline);
+    };
+  }, []);
 
   const handlePageChange = (newPage) => {
     const newParams = new URLSearchParams(searchParams);
@@ -70,6 +82,12 @@ const CharacterListPage = () => {
         </h3>
       </div>
 
+      {!isOnline && data?.results && (
+        <div style={{ background: 'var(--query-stale-bg)', color: 'var(--query-stale-text)', padding: '12px', borderRadius: '8px', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <span>📡</span> You are offline — showing data cached from your previous visit.
+        </div>
+      )}
+
       {isLoading ? (
         <div className="character-grid">
           {Array.from({ length: 8 }).map((_, i) => (
@@ -88,11 +106,7 @@ const CharacterListPage = () => {
         )
       ) : data?.results ? (
         <>
-          <div className="character-grid">
-            {data.results.map(character => (
-              <CharacterCard key={character.id} character={character} />
-            ))}
-          </div>
+          <CharacterGrid characters={data.results} />
           
           <Pagination 
             currentPage={page} 
