@@ -1,9 +1,11 @@
 import React from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-import { MdDashboard, MdPeople, MdTv, MdPlace, MdStar, MdSettings } from 'react-icons/md';
+import { MdDashboard, MdPeople, MdTv, MdPlace, MdStar, MdSettings, MdDarkMode, MdLightMode } from 'react-icons/md';
 import { characterListUrl } from '../../api/endpoints';
 import { get } from '../../api/http';
+import { useTheme } from '../../contexts/theme/useTheme';
+import CrashTest from '../error/CrashTest';
 
 const fetchCharacterCount = async () => {
   const data = await get(characterListUrl({}));
@@ -11,6 +13,8 @@ const fetchCharacterCount = async () => {
 };
 
 const Sidebar = ({ isOpen, onClose }) => {
+  const { theme, toggleTheme } = useTheme();
+  
   const { data: count } = useQuery({
     queryKey: ['characters', 'totalCount'],
     queryFn: fetchCharacterCount,
@@ -82,6 +86,24 @@ const Sidebar = ({ isOpen, onClose }) => {
                 </NavLink>
               </li>
             ))}
+          </ul>
+        </nav>
+      </div>
+      <div className="sidebar-section mobile-only-actions">
+        <p className="sidebar-label">ACTIONS</p>
+        <nav aria-label="Mobile Actions Navigation">
+          <ul>
+            <li>
+              <button onClick={toggleTheme} className="nav-link" style={{ background: 'transparent', border: 'none', width: '100%', textAlign: 'left', cursor: 'pointer' }}>
+                <span className="nav-icon">{theme === 'light' ? <MdDarkMode /> : <MdLightMode />}</span>
+                <span className="nav-name">Toggle Theme</span>
+              </button>
+            </li>
+            <li>
+              <div style={{ padding: '10px 24px' }}>
+                <CrashTest />
+              </div>
+            </li>
           </ul>
         </nav>
       </div>

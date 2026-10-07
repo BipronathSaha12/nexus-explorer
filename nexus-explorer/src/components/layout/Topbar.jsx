@@ -47,7 +47,7 @@ const Topbar = ({ onMenuClick }) => {
 
   return (
     <header className="topbar">
-      <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '16px', flex: 1 }}>
         <button 
           className="icon-button mobile-menu-btn" 
           onClick={onMenuClick}
