@@ -10,6 +10,9 @@ import WatchlistPage from '../pages/WatchlistPage';
 import ComparePage from '../pages/ComparePage';
 import SettingsPage from '../pages/SettingsPage';
 import NotFoundPage from '../pages/NotFoundPage';
+import DocumentationPage from '../pages/DocumentationPage';
+import ApiReferencePage from '../pages/ApiReferencePage';
+import PrivacyPolicyPage from '../pages/PrivacyPolicyPage';
 
 // [REQ-9] React Router setup: BrowserRouter, a layout route with <Outlet />, nested routes and a catch-all 404 route
 const routes = [
@@ -25,6 +28,9 @@ const routes = [
       { path: 'watchlist', element: <WatchlistPage /> },
       { path: 'compare', element: <ComparePage /> },
       { path: 'settings', element: <SettingsPage /> },
+      { path: 'documentation', element: <DocumentationPage /> },
+      { path: 'api-reference', element: <ApiReferencePage /> },
+      { path: 'privacy', element: <PrivacyPolicyPage /> },
       { path: '*', element: <NotFoundPage /> }, // Catch-all 404 route
     ],
   },

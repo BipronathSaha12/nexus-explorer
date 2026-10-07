@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { MdCode, MdSecurity, MdHelpOutline } from 'react-icons/md';
 
 const Footer = () => {
@@ -14,9 +15,9 @@ const Footer = () => {
         
         <div className="footer-section footer-links">
           <h4>Resources</h4>
-          <a href="#"><MdHelpOutline /> Documentation</a>
-          <a href="#"><MdCode /> API Reference</a>
-          <a href="#"><MdSecurity /> Privacy Policy</a>
+          <Link to="/documentation"><MdHelpOutline /> Documentation</Link>
+          <Link to="/api-reference"><MdCode /> API Reference</Link>
+          <Link to="/privacy"><MdSecurity /> Privacy Policy</Link>
         </div>
       </div>
       <div className="footer-bottom">
