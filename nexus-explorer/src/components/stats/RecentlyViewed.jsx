@@ -1,11 +1,12 @@
 import React from 'react';
 import { useRecentlyViewed } from '../../hooks/useRecentlyViewed';
+import Card from '../ui/Card';
 
 const RecentlyViewed = () => {
   const { recentlyViewed } = useRecentlyViewed();
 
   return (
-    <div style={{ background: 'var(--surface)', border: '1px solid var(--border)', borderRadius: '14px', padding: '16px', marginBottom: '24px' }}>
+    <Card style={{ padding: '16px', marginBottom: '24px' }}>
       <h3 style={{ fontSize: '14px', fontWeight: '700', margin: '0 0 16px 0' }}>Recently viewed</h3>
 
       {recentlyViewed.length === 0 ? (
@@ -23,7 +24,7 @@ const RecentlyViewed = () => {
           ))}
         </div>
       )}
-    </div>
+    </Card>
   );
 };
 
